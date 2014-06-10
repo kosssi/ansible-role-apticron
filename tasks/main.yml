@@ -1,0 +1,36 @@
+---
+
+- name: Install apticron
+  apt:
+    pkg=apticron
+    update_cache={{ update_cache }}
+    cache_valid_time={{ cache_valid_time }}
+  tags: apticron
+  when: apticron_email is defined
+
+- name: Configure apticron
+  template:
+    src=apticron.conf.j2
+    dest="{{ apticron_file }}"
+    group="{{ apticron_group }}"
+    owner="{{ apticron_owner }}"
+    mode="{{ apticron_mode }}"
+  when: apticron_email is defined
+  tags: apticron
+
+- name: Remove apticron cron
+  file:
+    path="/etc/cron.{{ item }}/apticron"
+    state=absent
+  with_items:
+    - daily
+    - hourly
+    - monthly
+    - weekly
+  when: apticron_frequency != item
+
+- name: Install apticron cron
+  file:
+    src: /usr/sbin/apticron
+    dest: "/etc/cron.{{ apticron_frequency }}/apticron"
+    state: link

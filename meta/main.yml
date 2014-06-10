@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Simon Constans
+  description: Configures apticron in Debian-like systems
+  license: MIT
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - monitoring
+dependencies: []

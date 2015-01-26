@@ -27,10 +27,11 @@
     - hourly
     - monthly
     - weekly
-  when: apticron_frequency != item
+  when: apticron_email is defined and apticron_frequency != item
 
 - name: Install apticron cron
   file:
     src: /usr/sbin/apticron
     dest: "/etc/cron.{{ apticron_frequency }}/apticron"
     state: link
+  when: apticron_email is defined

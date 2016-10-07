@@ -34,4 +34,5 @@
     src: /usr/sbin/apticron
     dest: "/etc/cron.{{ apticron_frequency }}/apticron"
     state: link
+    force: yes
   when: apticron_email is defined

@@ -23,6 +23,7 @@
     path="/etc/cron.{{ item }}/apticron"
     state=absent
   with_items:
+    - d
     - daily
     - hourly
     - monthly
